@@ -1,23 +1,27 @@
 import pygame
 
-from Ant import Ant
+from Mapper import Mapper
+from core.World import World
 
-FPS = 60
+FPS = 30
 SIZE = 500
 
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((SIZE, SIZE))
-pygame.display.set_caption("Ants")
+pygame.display.set_caption("Ants 2")
 clock = pygame.time.Clock()
 
 
-all = pygame.sprite.Group()
-for x in range(50):
-    ant = Ant((400, 400), 500)
-    all.add(ant)
+world = World(SIZE)
+world.nest = (250, 250)
 
-pygame.time.delay(10000)
+for x in range(1):
+    world.breed_ant()
+
+mapper = Mapper(world, 1)
+
+#pygame.time.delay(10000)
 running = True
 while running:
     clock.tick(FPS)
@@ -27,8 +31,15 @@ while running:
 
     screen.fill((0, 0, 0))
 
-    all.update()
-    all.draw(screen)
+    world.update()
+    #board.evaporate(RHO)
+    pheromones = mapper.getPheromones()
+    pheromones.update()
+    pheromones.draw(screen)
+
+    ants = mapper.getAnts()
+    ants.update()
+    ants.draw(screen)
 
     pygame.display.flip()
 
