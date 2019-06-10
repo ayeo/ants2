@@ -32,7 +32,7 @@ while running:
     screen.fill((0, 0, 0))
 
     world.update()
-    #board.evaporate(RHO)
+    world.evaporate(0.01)
     pheromones = mapper.getPheromones()
     pheromones.update()
     pheromones.draw(screen)

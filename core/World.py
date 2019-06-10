@@ -8,7 +8,7 @@ class World():
 
     def __init__(self, size):
         self.size = size
-        self.pheromones = np.full((size, size), 0.01, dtype=float)
+        self.pheromones = np.full((size, size), 0.0, dtype=float)
 
     def breed_ant(self):
         id = len(self.ants)
@@ -17,8 +17,14 @@ class World():
 
     def update(self):
         for ant in self.ants:
-            ant.update()
             self.leave_pheromone(ant.position, 1)
+            ant.update()
+
+
+    def evaporate(self, quantity):
+        self.pheromones = self.pheromones - quantity
+        self.pheromones = np.round(self.pheromones, 1)
 
     def leave_pheromone(self, position, quantity):
         self.pheromones[position] = self.pheromones[position] + quantity
+        print(self.pheromones[position])
