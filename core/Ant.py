@@ -10,22 +10,16 @@ class Ant():
         self.speed = 10
         self.board_size = board_size
 
-    def update(self, *args):
-        if (self.angle == self.new_angle and random.randint(4, 4) == 4):
-            self.new_angle = self.angle - random.randint(-180, 180)
-
-        if (self.angle > self.new_angle):
-            x = math.fabs(self.angle - self.new_angle) / 2
-            if x < 1:
+    def update(self):
+        if self.angle == self.new_angle:
+            if random.randint(0, 5) == 4:
+                self.new_angle = self.angle - random.randint(-180, 180)
+        else:
+            x = (self.angle - self.new_angle) / 5
+            if math.fabs(x) < 1:
                 self.angle = self.new_angle
             else:
                 self.angle = self.angle - x
-        else:
-            x = math.fabs(self.angle - self.new_angle) / 2
-            if x < 1:
-                self.angle = self.new_angle
-            else:
-                self.angle = self.angle + x
 
         theta = self.angle * math.pi / 180
         delta_x = self.speed * math.cos(theta)
