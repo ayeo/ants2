@@ -1,5 +1,6 @@
 import pygame
 import numpy as np
+import math
 
 from Pheromones import Pheromones
 
@@ -22,11 +23,11 @@ pheromones.pheromones = np.array([
     [0,0,0,0,0,0,0,0,0,0], #4
     [0,0,0,0,0,2,3,0,0,0], #5
     [0,0,0,0,0,0,0,0,0,0], #6
-    [0,0,0,0,4,0,0,0,0,0], #7
+    [0,0,0,0,4,0,4,0,0,0], #7
     [0,0,0,0,0,0,0,0,0,0], #8
     [0,9,0,0,0,0,0,3,0,0], #9
     [0,0,0,0,0,0,0,0,0,0], #10
-]).transpose()
+])
 
 
 new = np.array([
@@ -41,9 +42,23 @@ distance = (pheromones.sense - 1)  /2
 position = pheromones.ant_position
 x = slice(int(position[0] - distance), int(position[0] + distance + 1))
 
-pheromones.pheromones[x, x] += new
+slice = pheromones.pheromones[x, x]
+max = 0
+cell = (2, 2)
+for y, column in enumerate(slice):
+    for x, value in enumerate(column):
+        if (value > max):
+            cell = (x, y)
+            max = value
+
+print(cell)
+
+radians = math.atan2(2 - cell[1], 2 - cell[0])
+degrees = math.degrees(radians)
+print(degrees + 90)
 
 all.add(pheromones)
+pheromones.pheromones = pheromones.pheromones.transpose()
 all.update()
 
 running = True
