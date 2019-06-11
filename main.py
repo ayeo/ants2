@@ -32,7 +32,7 @@ world = World(SIZE)
 #     [0,0,0,0,0,0,0,0,0,0,0], #10
 # ])
 world.nest = (50, 50)
-world.ants_number(2, 5)
+world.ants_number(3, 15)
 mapper = Mapper(world, TAIL)
 
 running = True

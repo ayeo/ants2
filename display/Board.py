@@ -31,7 +31,7 @@ class Board(pygame.sprite.Sprite):
                     continue
                 value = min(value, 9)
                 color = self.colors[math.floor(value)]
-                pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2), x*ts-math.floor(ts/2), ts, ts))
+                pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2), x*ts-math.floor(ts/2), 2, 2))
 
 
     def adjust_color_lightness(self, color, factor):

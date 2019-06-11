@@ -9,8 +9,8 @@ class Ant():
         self.last_position = (0, 0)
         self.angle = random.randint(0, 360)
         self.new_angle = self.angle
-        self.speed = 4
-        self.sense = 7
+        self.speed = 3
+        self.sense = 5
         self.board_size = board_size
         self.pheromones = np.full((board_size, board_size), 0.0, dtype=float)
 
@@ -37,9 +37,6 @@ class Ant():
             return None
         else:
             return tuple(np.array(cell) - [center, center])
-            # radians = math.atan2(5 - cell[1], 5 - cell[0])
-            # degrees = math.degrees(radians)
-            # return degrees + 90
 
     def update(self, pheromones):
         distance = (self.sense - 1) / 2
@@ -52,6 +49,7 @@ class Ant():
             x = np.array(self.position)
             y = np.array(list(fixed_position))
             z = x + y
+            self.last_position = self.position
             self.position = tuple(z)
 
         else:
