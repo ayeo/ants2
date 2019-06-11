@@ -15,7 +15,7 @@ class Ant():
             if random.randint(0, 5) == 4:
                 self.new_angle = self.angle - random.randint(-180, 180)
         else:
-            x = (self.angle - self.new_angle) / 5
+            x = (self.angle - self.new_angle) / 3
             if math.fabs(x) < 1:
                 self.angle = self.new_angle
             else:
@@ -28,13 +28,12 @@ class Ant():
 
         if new_position[1] < 0 or new_position[1] >= self.board_size:
             self.angle = round(360 - self.angle, 2)
-            self.new_angle = self.angle
-            return
+            self.new_angle = round(360 - self.new_angle, 2)
+            return self.update()
 
         if new_position[0] < 0 or new_position[0] >= self.board_size:
-            self.angle = round(self.angle + 90, 2)
-            self.new_angle = self.angle
-            return
-
+            self.angle = round(360 - self.angle + 90, 2)
+            self.new_angle = round(360 - self.new_angle + 90, 2)
+            return self.update()
 
         self.position = new_position

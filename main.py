@@ -15,9 +15,7 @@ clock = pygame.time.Clock()
 
 world = World(SIZE)
 world.nest = (250, 250)
-
-for x in range(1):
-    world.breed_ant()
+world.ants_number(2, 20)
 
 mapper = Mapper(world, 1)
 
@@ -32,7 +30,7 @@ while running:
     screen.fill((0, 0, 0))
 
     world.update()
-    world.evaporate(0.01)
+    world.evaporate(0.1)
     pheromones = mapper.getPheromones()
     pheromones.update()
     pheromones.draw(screen)
