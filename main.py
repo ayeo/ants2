@@ -28,11 +28,11 @@ world = World(SIZE)
 #     [0,0,0,0,0,0,0,0,0,0,0], #6
 #     [0,0,0,0,0,0,0,0,0,0,0], #7
 #     [0,0,0,0,0,0,0,0,0,0,0], #8
-#     [0,0,0,0,0,0,9,0,8,0,0], #9
+#     [0,0,0,0,0,0,0,0,0,0,0], #9
 #     [0,0,0,0,0,0,0,0,0,0,0], #10
 # ])
 world.nest = (50, 50)
-world.ants_number(3, 15)
+world.ants_number(300, 10)
 mapper = Mapper(world, TAIL)
 
 running = True
@@ -44,7 +44,7 @@ while running:
 
     screen.fill((0, 0, 0))
     world.update()
-    world.evaporate(0.1)
+    world.evaporate(0.01)
     pheromones = mapper.getPheromones()
     pheromones.update()
     pheromones.draw(screen)
@@ -53,6 +53,6 @@ while running:
     ants.update()
     ants.draw(screen)
     pygame.display.flip()
-    pygame.time.delay(100)
+    pygame.time.delay(0)
 
 pygame.quit()

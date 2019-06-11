@@ -26,8 +26,8 @@ class World():
 
         for ant in self.ants:
             ant.update(self.pheromones)
-            ant.leave_pheromone(5)
-            self.leave_pheromone(ant.position, 5)
+            ant.leave_pheromone(1)
+            self.leave_pheromone(ant.position, 1)
 
 
         self.counter = self.counter + 1

@@ -15,7 +15,7 @@ class AntSprite(pygame.sprite.Sprite):
 
 
     def update(self, *args):
-        self.image = pygame.transform.rotate(self.original_image, 270 - self.ant.angle)
+        self.image = pygame.transform.rotate(self.original_image, self.ant.angle)
 
 
     def change_position(self, pos):

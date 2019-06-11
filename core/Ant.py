@@ -3,10 +3,11 @@ import random
 import numpy as np
 
 class Ant():
+    breadcrumb = []
+
     def __init__(self, id, position, board_size):
         self.id = id
         self.position = position
-        self.last_position = (0, 0)
         self.angle = random.randint(0, 360)
         self.new_angle = self.angle
         self.speed = 3
@@ -19,6 +20,9 @@ class Ant():
 
     def get_position(self, pheromones, x, y):
         ppp = pheromones - self.pheromones
+        for last in self.breadcrumb:
+            ppp[last] = 0
+
         slice = np.array(ppp[y, x])
         center = int((self.sense - 1) / 2)
         if slice.size == 0:
@@ -36,7 +40,8 @@ class Ant():
         if cell == (-1, -1) :
             return None
         else:
-            return tuple(np.array(cell) - [center, center])
+            t = tuple(np.array(cell) - [center, center])
+            return t
 
     def update(self, pheromones):
         distance = (self.sense - 1) / 2
@@ -49,8 +54,10 @@ class Ant():
             x = np.array(self.position)
             y = np.array(list(fixed_position))
             z = x + y
-            self.last_position = self.position
             self.position = tuple(z)
+            self.breadcrumb.append(self.position)
+            self.breadcrumb = self.breadcrumb[-200:]
+
 
         else:
             if self.angle == self.new_angle:

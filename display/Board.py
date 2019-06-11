@@ -24,7 +24,6 @@ class Board(pygame.sprite.Sprite):
 
     def update(self, *args):
         ts = self.tail_size
-        # draw pheromones A
         for x, rows in enumerate(self.world.pheromones):
             for y, value in enumerate(rows):
                 if value == 0:
