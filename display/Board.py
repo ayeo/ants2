@@ -27,11 +27,11 @@ class Board(pygame.sprite.Sprite):
         # draw pheromones A
         for x, rows in enumerate(self.world.pheromones):
             for y, value in enumerate(rows):
-                if value <= 0.1:
+                if value == 0:
                     continue
                 value = min(value, 9)
                 color = self.colors[math.floor(value)]
-                pygame.draw.rect(self.image, color, (x*ts-math.floor(ts/2), y*ts-math.floor(ts/2), 2, 2))
+                pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2), x*ts-math.floor(ts/2), ts, ts))
 
 
     def adjust_color_lightness(self, color, factor):

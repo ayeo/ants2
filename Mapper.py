@@ -21,7 +21,7 @@ class Mapper():
         self.ants = pygame.sprite.Group()
         for ant in self.world.ants:
             position = (ant.position[0] * self.tail_size, ant.position[1] * self.tail_size)
-            self.ants.add(AntSprite(ant, position))
+            self.ants.add(AntSprite(ant, (position[1], position[0])))
 
 
         return self.ants

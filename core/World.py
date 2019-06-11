@@ -25,8 +25,10 @@ class World():
                 self.breed_ant()
 
         for ant in self.ants:
+            ant.update(self.pheromones)
+            ant.leave_pheromone(5)
             self.leave_pheromone(ant.position, 5)
-            ant.update()
+
 
         self.counter = self.counter + 1
 
