@@ -29,13 +29,13 @@ pheromones.pheromones = np.array([
 ]).transpose()
 
 
-new = [
-    [1, 0, 0, 0, 0],
+new = np.array([
+    [0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 9]
-]
+    [0, 0, 0, 0, 0]
+]).transpose()
 
 distance = (pheromones.sense - 1)  /2
 position = pheromones.ant_position
