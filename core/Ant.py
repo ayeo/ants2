@@ -53,12 +53,15 @@ class Ant():
         fixed_position = self.get_position(pheromones, x, y)
 
         if fixed_position:
-            x = np.array(self.position)
-            y = np.array(list(fixed_position))
-            z = x + y
-            self.position = tuple(z)
+            z = tuple(np.array(self.position) + np.array(list(fixed_position)))
+            angle = math.atan2(self.position[0] - z[0], self.position[1] - z[1])
+            self.angle = math.degrees(angle) + 90
+
+            self.position = z
             self.breadcrumb.append(self.position)
             self.breadcrumb = self.breadcrumb[-100:]
+
+
 
 
         else:
