@@ -8,6 +8,7 @@ class Ant():
 
     def __init__(self, id, position, board_size):
         self.id = id
+        self.step = 0
         self.position = position
         self.angle = random.randint(0, 360)
         self.new_angle = self.angle
@@ -57,12 +58,12 @@ class Ant():
             z = x + y
             self.position = tuple(z)
             self.breadcrumb.append(self.position)
-            self.breadcrumb = self.breadcrumb[-200:]
+            self.breadcrumb = self.breadcrumb[-100:]
 
 
         else:
             if self.angle == self.new_angle:
-                if random.randint(0, 20) == 4:
+                if random.randint(0, 10) == 4:
                     self.new_angle = self.angle - random.randint(-180, 180)
             else:
                 x = (self.angle - self.new_angle) / 3

@@ -19,17 +19,30 @@ class Board(pygame.sprite.Sprite):
         c = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1]
         self.colors = []
         for x in range(10):
-            self.colors.append(self.adjust_color_lightness((255, 255, 0), 1 - c[x]))
+            self.colors.append(self.adjust_color_lightness((255, 0, 0), 1 - c[x]))
+
+        c = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1]
+        self.colors_nest = []
+        for x in range(10):
+            self.colors_nest.append(self.adjust_color_lightness((255, 255, 0), 1 - c[x]))
 
 
     def update(self, *args):
         ts = self.tail_size
-        for x, rows in enumerate(self.world.pheromones):
+        for x, rows in enumerate(self.world.pheromones_nest):
             for y, value in enumerate(rows):
                 if value == 0:
                     continue
                 value = min(value, 9)
                 color = self.colors[math.floor(value)]
+                pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2) + 2, x*ts-math.floor(ts/2) + 2, 2, 2))
+
+        for x, rows in enumerate(self.world.pheromones_food):
+            for y, value in enumerate(rows):
+                if value == 0:
+                    continue
+                value = min(value, 9)
+                color = self.colors_nest[math.floor(value)]
                 pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2), x*ts-math.floor(ts/2), 2, 2))
 
         pygame.draw.rect(
