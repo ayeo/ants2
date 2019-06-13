@@ -7,14 +7,18 @@ class AntSprite(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.ant = ant
         self.id = ant.id
-        self.image = pygame.Surface((3, 6), pygame.SRCALPHA)
+        self.image = pygame.Surface((3, 8), pygame.SRCALPHA)
         self.original_image = self.image
-        self.image.fill((255, 0, 0))
         self.rect = self.image.get_rect()
         self.rect.center = position
 
 
     def update(self, *args):
+        if self.ant.carrying:
+            self.image.fill((255, 255, 0))
+        else:
+            self.image.fill((255, 0, 0))
+
         self.image = pygame.transform.rotate(self.original_image, self.ant.angle)
 
 

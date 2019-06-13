@@ -4,6 +4,7 @@ import numpy as np
 
 class Ant():
     breadcrumb = []
+    carrying = False
 
     def __init__(self, id, position, board_size):
         self.id = id
@@ -61,7 +62,7 @@ class Ant():
 
         else:
             if self.angle == self.new_angle:
-                if random.randint(0, 5) == 4:
+                if random.randint(0, 20) == 4:
                     self.new_angle = self.angle - random.randint(-180, 180)
             else:
                 x = (self.angle - self.new_angle) / 3

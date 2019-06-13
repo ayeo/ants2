@@ -32,6 +32,28 @@ class Board(pygame.sprite.Sprite):
                 color = self.colors[math.floor(value)]
                 pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2), x*ts-math.floor(ts/2), 2, 2))
 
+        pygame.draw.rect(
+            self.image,
+            (0, 0, 255),
+            (
+                self.world.food[0] * ts - math.floor(ts / 2),
+                self.world.food[1] * ts - math.floor(ts / 2),
+                self.world.food[2] * ts,
+                self.world.food[3] * ts
+             )
+        )
+
+        pygame.draw.rect(
+            self.image,
+            (0, 255, 255),
+            (
+                self.world.nest[0] * ts - math.floor(ts / 2),
+                self.world.nest[1] * ts - math.floor(ts / 2),
+                self.world.nest[2] * ts,
+                self.world.nest[3] * ts
+            )
+        )
+
 
     def adjust_color_lightness(self, color, factor):
         h, l, s = rgb_to_hls(color[0]/255.0, color[1]/255.0, color[2]/255.0)
