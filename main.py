@@ -36,7 +36,7 @@ world.ants_number(30, 10)
 world.food = (60, 60, 10, 10)
 mapper = Mapper(world, TAIL)
 
-#pygame.time.delay(10000)
+pygame.time.delay(10000)
 running = True
 while running:
     clock.tick(FPS)

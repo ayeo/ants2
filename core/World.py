@@ -61,12 +61,12 @@ class World():
         self.pheromones_nest = self.pheromones_nest - quantity
         self.pheromones_nest = np.round(self.pheromones_nest, 5)
         self.pheromones_nest = np.array([[max(0.00, x) for x in y] for y in self.pheromones_nest])
-        self.pheromones_nest = np.array([[min(10, x) for x in y] for y in self.pheromones_nest])
+        #self.pheromones_nest = np.array([[min(10, x) for x in y] for y in self.pheromones_nest])
 
         self.pheromones_food = self.pheromones_food - quantity
         self.pheromones_food = np.round(self.pheromones_food, 5)
         self.pheromones_food = np.array([[max(0.00, x) for x in y] for y in self.pheromones_food])
-        self.pheromones_food = np.array([[min(10, x) for x in y] for y in self.pheromones_food])
+        #self.pheromones_food = np.array([[min(10, x) for x in y] for y in self.pheromones_food])
 
     def leave_pheromone(self, position, quantity, carrying):
         if carrying:
