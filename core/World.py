@@ -28,19 +28,27 @@ class World():
 
         for ant in self.ants:
             if ant.carrying:
-                ant.update(self.pheromones_nest)
+                ant.update(ant.cache)
             else:
                 ant.update(self.pheromones_food)
 
 
             ant.step = ant.step + 1
-            if (ant.step < 500):
-                ant.leave_pheromone(1)
-                self.leave_pheromone(ant.position, 1, ant.carrying)
+            if (ant.step > 300):
+                ant.position = (self.nest[0], self.nest[1])
+                ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
+                ant.breadcrumb = []
+                ant.step = 0
+                return
+
+
+            ant.leave_pheromone(1)
+            self.leave_pheromone(ant.position, 1, ant.carrying)
 
             if ant.carrying == False and \
                     ant.position[0] > self.food[0] - self.food[2] and ant.position[0] < self.food[0] + self.food[2] and \
                     ant.position[1] > self.food[1] - self.food[2] and ant.position[1] < self.food[1] + self.food[2]:
+                ant.cache = ant.pheromones[:]
                 ant.breadcrumb = []
                 ant.breadcrumb.append(ant.position)
                 ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
@@ -50,6 +58,7 @@ class World():
             if ant.carrying == True and \
                     ant.position[0] > self.nest[0] - self.nest[2] and ant.position[0] < self.nest[0] + self.nest[2] and \
                     ant.position[1] > self.nest[1] - self.nest[2] and ant.position[1] < self.nest[1] + self.nest[2]:
+                ant.cache = ant.pheromones[:]
                 ant.breadcrumb = []
                 ant.breadcrumb.append(ant.position)
                 ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
@@ -63,10 +72,12 @@ class World():
         self.pheromones_nest = self.pheromones_nest - quantity
         self.pheromones_nest = np.round(self.pheromones_nest, 5)
         self.pheromones_nest = np.array([[max(0.00, x) for x in y] for y in self.pheromones_nest])
+        self.pheromones_nest = np.array([[min(5.00, x) for x in y] for y in self.pheromones_nest])
 
         self.pheromones_food = self.pheromones_food - quantity
         self.pheromones_food = np.round(self.pheromones_food, 5)
         self.pheromones_food = np.array([[max(0.00, x) for x in y] for y in self.pheromones_food])
+        self.pheromones_food = np.array([[min(5.00, x) for x in y] for y in self.pheromones_food])
 
 
     def leave_pheromone(self, position, quantity, carrying):

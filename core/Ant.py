@@ -62,14 +62,12 @@ class Ant():
             self.breadcrumb = self.breadcrumb[-100:]
 
 
-
-
         else:
             if self.angle == self.new_angle:
-                if random.randint(0, 10) == 4:
-                    self.new_angle = self.angle - random.randint(-180, 180)
+                if random.randint(0, 30) == 4:
+                    self.new_angle = self.angle - random.randint(-40, 40)
             else:
-                x = (self.angle - self.new_angle) / 3
+                x = (self.angle - self.new_angle) / 5
                 if math.fabs(x) < 1:
                     self.angle = self.new_angle
                 else:
