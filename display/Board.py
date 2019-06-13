@@ -16,12 +16,13 @@ class Board(pygame.sprite.Sprite):
         self.rect.left = 0
         self.rect.top = 0
 
-        c = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1]
+        c = [0.70, 0.65, 0.60, 0.55, 0.50, 0.45, 0.40, 0.35, 0.30, 0.20, 0.10]
         self.colors = []
         for x in range(10):
             self.colors.append(self.adjust_color_lightness((255, 0, 0), 1 - c[x]))
 
-        c = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1]
+        c = [0.70, 0.65, 0.60, 0.55, 0.50, 0.45, 0.40, 0.35, 0.30, 0.20, 0.10]
+        #c = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1]
         self.colors_nest = []
         for x in range(10):
             self.colors_nest.append(self.adjust_color_lightness((255, 255, 0), 1 - c[x]))
@@ -35,7 +36,7 @@ class Board(pygame.sprite.Sprite):
                     continue
                 value = min(value, 9)
                 color = self.colors[math.floor(value)]
-                pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2) + 2, x*ts-math.floor(ts/2) + 2, 2, 2))
+                pygame.draw.circle(self.image, color, (y*ts-math.floor(ts/2) + 2, x*ts-math.floor(ts/2) + 2), 2)
 
         for x, rows in enumerate(self.world.pheromones_food):
             for y, value in enumerate(rows):
@@ -43,28 +44,22 @@ class Board(pygame.sprite.Sprite):
                     continue
                 value = min(value, 9)
                 color = self.colors_nest[math.floor(value)]
-                pygame.draw.rect(self.image, color, (y*ts-math.floor(ts/2), x*ts-math.floor(ts/2), 2, 2))
+                pygame.draw.circle(self.image, color, (y*ts-math.floor(ts/2) - 2, x*ts-math.floor(ts/2) - 2), 2)
 
-        pygame.draw.rect(
+        #food
+        pygame.draw.circle(
             self.image,
-            (0, 0, 255),
-            (
-                self.world.food[0] * ts - math.floor(ts / 2),
-                self.world.food[1] * ts - math.floor(ts / 2),
-                self.world.food[2] * ts,
-                self.world.food[3] * ts
-             )
+            (160, 35, 60),
+            (self.world.food[0] * ts - math.floor(ts / 2), self.world.food[1] * ts - math.floor(ts / 2)),
+            self.world.food[2] * ts
         )
 
-        pygame.draw.rect(
+        #nest
+        pygame.draw.circle(
             self.image,
-            (0, 255, 255),
-            (
-                self.world.nest[0] * ts - math.floor(ts / 2),
-                self.world.nest[1] * ts - math.floor(ts / 2),
-                self.world.nest[2] * ts,
-                self.world.nest[3] * ts
-            )
+            (66, 182, 244),
+            (self.world.nest[0] * ts - math.floor(ts / 2), self.world.nest[1] * ts - math.floor(ts / 2)),
+            self.world.nest[2] * ts,
         )
 
 

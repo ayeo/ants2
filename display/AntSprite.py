@@ -7,7 +7,7 @@ class AntSprite(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.ant = ant
         self.id = ant.id
-        self.image = pygame.Surface((3, 8), pygame.SRCALPHA)
+        self.image = pygame.Surface((5, 10), pygame.SRCALPHA)
         self.original_image = self.image
         self.rect = self.image.get_rect()
         self.rect.center = position

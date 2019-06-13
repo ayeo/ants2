@@ -1,11 +1,10 @@
 import pygame
-import numpy as np
 
 from Mapper import Mapper
 from core.World import World
 
 FPS = 60
-SIZE = 101
+SIZE = 51
 TAIL = 5
 
 pygame.init()
@@ -16,7 +15,6 @@ clock = pygame.time.Clock()
 
 
 world = World(SIZE)
-
 
 # world.pheromones = np.array([
 #     [0,0,0,0,0,0,0,0,0,0,0], #0
@@ -31,12 +29,12 @@ world = World(SIZE)
 #     [0,0,0,0,0,0,0,0,0,0,0], #9
 #     [0,0,0,0,0,0,0,0,0,0,0], #10
 # ])
-world.nest = (30, 30, 10, 10)
-world.ants_number(30, 10)
-world.food = (60, 60, 10, 10)
+world.nest = (20, 20, 5)
+world.ants_number(3, 10)
+world.food = (40, 40, 5)
 mapper = Mapper(world, TAIL)
 
-pygame.time.delay(10000)
+#pygame.time.delay(10000)
 running = True
 while running:
     clock.tick(FPS)
@@ -46,7 +44,7 @@ while running:
 
     screen.fill((0, 0, 0))
     world.update()
-    world.evaporate(0.01)
+    world.evaporate(0.005)
     pheromones = mapper.getPheromones()
     pheromones.update()
     pheromones.draw(screen)
@@ -55,6 +53,6 @@ while running:
     ants.update()
     ants.draw(screen)
     pygame.display.flip()
-    pygame.time.delay(0)
+    pygame.time.delay(100)
 
 pygame.quit()

@@ -13,7 +13,7 @@ class Ant():
         self.angle = random.randint(0, 360)
         self.new_angle = self.angle
         self.speed = 3
-        self.sense = 5
+        self.sense = 7
         self.board_size = board_size
         self.pheromones = np.full((board_size, board_size), 0.0, dtype=float)
 
