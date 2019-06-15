@@ -21,6 +21,7 @@ class World():
         self.ants.append(ant)
 
     def update(self):
+        self.counter = self.counter + 1
         if self.counter == self.frequency:
             if (len(self.ants) < self.number):
                 self.counter = 0
@@ -36,9 +37,7 @@ class World():
             ant.step = ant.step + 1
             if (ant.step > 300):
                 ant.position = (self.nest[0], self.nest[1])
-                ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
-                ant.breadcrumb = []
-                ant.step = 0
+                ant.reset()
                 return
 
 
@@ -50,13 +49,12 @@ class World():
                 ant.carrying = True
                 ant.leave_pheromone(1)
                 self.leave_pheromone(ant.position, 1, ant.carrying)
-            elif self.is_on_nest(ant):
+
+            elif self.is_on_nest(ant) and ant.carrying:
                 ant.reset()
                 ant.carrying = False
                 ant.leave_pheromone(1)
                 self.leave_pheromone(ant.position, 1, ant.carrying)
-
-        self.counter = self.counter + 1
 
 
     def is_on_food(self, ant: Ant):

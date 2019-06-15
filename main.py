@@ -41,6 +41,6 @@ while running:
     ants.update()
     ants.draw(screen)
     pygame.display.flip()
-    pygame.time.delay(100)
+    #pygame.time.delay(100)
 
 pygame.quit()
