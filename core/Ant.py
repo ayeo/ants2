@@ -12,8 +12,8 @@ class Ant():
         self.position = position
         self.angle = random.randint(0, 360)
         self.new_angle = self.angle
-        self.speed = 3
-        self.sense = 7
+        self.speed = 5
+        self.sense = 11 #todo speed * 2 + 1
         self.board_size = board_size
         self.pheromones = np.full((board_size, board_size), 0.0, dtype=float)
 
@@ -64,11 +64,11 @@ class Ant():
 
         else:
             if self.angle == self.new_angle:
-                if random.randint(0, 30) == 4:
-                    self.new_angle = self.angle - random.randint(-40, 40)
+                if random.randint(0, 20) == 4:
+                    self.new_angle = self.angle - random.randint(-90, 90)
             else:
-                x = (self.angle - self.new_angle) / 5
-                if math.fabs(x) < 1:
+                x = (self.angle - self.new_angle) / 10
+                if math.fabs(x) < 0.2:
                     self.angle = self.new_angle
                 else:
                     self.angle = self.angle - x

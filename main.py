@@ -4,8 +4,9 @@ from Mapper import Mapper
 from core.World import World
 
 FPS = 60
-SIZE = 201
-TAIL = 3
+SIZE = 301
+TAIL = 2
+ANTS = 100
 
 pygame.init()
 pygame.mixer.init()
@@ -16,22 +17,9 @@ clock = pygame.time.Clock()
 
 world = World(SIZE)
 
-# world.pheromones = np.array([
-#     [0,0,0,0,0,0,0,0,0,0,0], #0
-#     [0,0,0,0,0,0,0,0,0,0,0], #1
-#     [0,0,0,0,0,0,0,0,0,0,0], #2
-#     [0,0,0,0,0,0,0,0,0,0,0], #3
-#     [0,0,0,0,0,0,0,0,0,0,0], #4
-#     [0,0,0,0,0,0,0,6,0,6,0], #5
-#     [0,0,0,0,0,0,0,0,0,0,0], #6
-#     [0,0,0,0,0,0,0,0,0,0,0], #7
-#     [0,0,0,0,0,0,0,0,0,0,0], #8
-#     [0,0,0,0,0,0,0,0,0,0,0], #9
-#     [0,0,0,0,0,0,0,0,0,0,0], #10
-# ])
-world.nest = (20, 20, 5)
-world.ants_number(30, 40)
-world.food = (170, 170, 15)
+world.nest = (100, 100, 5)
+world.food = (250, 250, 10)
+world.ants_number(ANTS, 40)
 mapper = Mapper(world, TAIL)
 
 #pygame.time.delay(10000)

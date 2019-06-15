@@ -45,25 +45,29 @@ class World():
             ant.leave_pheromone(1)
             self.leave_pheromone(ant.position, 1, ant.carrying)
 
-            if ant.carrying == False and \
-                    ant.position[0] > self.food[0] - self.food[2] and ant.position[0] < self.food[0] + self.food[2] and \
-                    ant.position[1] > self.food[1] - self.food[2] and ant.position[1] < self.food[1] + self.food[2]:
+            if ant.position[0] > self.food[0] - self.food[2] and ant.position[0] < self.food[0] + self.food[2] and \
+            ant.position[1] > self.food[1] - self.food[2] and ant.position[1] < self.food[1] + self.food[2]:
+
                 ant.cache = ant.pheromones[:]
                 ant.breadcrumb = []
                 ant.breadcrumb.append(ant.position)
                 ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
                 ant.carrying = True
                 ant.step = 0
+                ant.leave_pheromone(1)
+                self.leave_pheromone(ant.position, 1, ant.carrying)
 
-            if ant.carrying == True and \
-                    ant.position[0] > self.nest[0] - self.nest[2] and ant.position[0] < self.nest[0] + self.nest[2] and \
-                    ant.position[1] > self.nest[1] - self.nest[2] and ant.position[1] < self.nest[1] + self.nest[2]:
+            if ant.position[0] > self.nest[0] - self.nest[2] and ant.position[0] < self.nest[0] + self.nest[2] and \
+            ant.position[1] > self.nest[1] - self.nest[2] and ant.position[1] < self.nest[1] + self.nest[2]:
+
                 ant.cache = ant.pheromones[:]
                 ant.breadcrumb = []
                 ant.breadcrumb.append(ant.position)
                 ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
                 ant.carrying = False
                 ant.step = 0
+                ant.leave_pheromone(1)
+                self.leave_pheromone(ant.position, 1, ant.carrying)
 
         self.counter = self.counter + 1
 
