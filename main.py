@@ -4,9 +4,9 @@ from Mapper import Mapper
 from core.World import World
 
 FPS = 60
-SIZE = 101
+SIZE = 301
 TAIL = 2
-ANTS = 30
+ANTS = 300
 
 pygame.init()
 pygame.mixer.init()
@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 world = World(SIZE)
 
 world.nest = (40, 40, 5)
-world.food = (70, 70, 10)
+world.food = (270, 270, 10)
 world.ants_number(ANTS, 40)
 mapper = Mapper(world, TAIL)
 

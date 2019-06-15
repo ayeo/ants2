@@ -3,7 +3,6 @@ import random
 import numpy as np
 
 class Ant():
-    breadcrumb = []
     carrying = False
 
     def __init__(self, id, position, board_size):
@@ -22,9 +21,6 @@ class Ant():
 
     def get_position(self, pheromones, x, y):
         ppp = pheromones - self.pheromones
-        for last in self.breadcrumb:
-            ppp[last] = 0
-
         slice = np.array(ppp[y, x])
         center = int((self.sense - 1) / 2)
         if slice.size == 0:
@@ -47,8 +43,6 @@ class Ant():
 
     def reset(self):
         self.memory = self.pheromones[:]
-        self.breadcrumb = []
-        self.breadcrumb.append(self.position)
         self.pheromones = np.full((self.board_size, self.board_size), 0.0, dtype=float)
         self.step = 0
 
@@ -63,11 +57,7 @@ class Ant():
             z = tuple(np.array(self.position) + np.array(list(fixed_position)))
             angle = math.atan2(self.position[0] - z[0], self.position[1] - z[1])
             self.angle = math.degrees(angle) + 90
-
             self.position = z
-            self.breadcrumb.append(self.position)
-            self.breadcrumb = self.breadcrumb[-100:]
-
 
         else:
             if self.angle == self.new_angle:
@@ -86,13 +76,13 @@ class Ant():
             new_position = (int(self.position[0] + delta_x), int(self.position[1] + delta_y))
 
             if new_position[1] < 0 or new_position[1] >= self.board_size:
-                self.angle = round(360 - self.angle, 2)
-                self.new_angle = round(360 - self.new_angle, 2)
+                self.angle = round(self.angle - 90, 2)
+                self.new_angle = self.angle
                 return
 
             if new_position[0] < 0 or new_position[0] >= self.board_size:
-                self.angle = round(360 - self.angle + 90, 2)
-                self.new_angle = round(360 - self.new_angle + 90, 2)
+                self.angle = round(self.angle - 90, 2)
+                self.new_angle = self.angle
                 return
 
             self.position = new_position

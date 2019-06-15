@@ -33,6 +33,9 @@ class World():
             else:
                 ant.update(self.pheromones_food)
 
+            ant.leave_pheromone(1)
+            self.leave_pheromone(ant.position, 1, ant.carrying)
+
 
             ant.step = ant.step + 1
             if (ant.step > 300):
@@ -41,10 +44,7 @@ class World():
                 return
 
 
-            ant.leave_pheromone(1)
-            self.leave_pheromone(ant.position, 1, ant.carrying)
-
-            if self.is_on_food(ant):
+            if self.is_on_food(ant) and ant.carrying == False:
                 ant.reset()
                 ant.carrying = True
                 ant.leave_pheromone(1)
@@ -53,6 +53,7 @@ class World():
             elif self.is_on_nest(ant) and ant.carrying:
                 ant.reset()
                 ant.carrying = False
+                ant.position = (self.nest[0], self.nest[1])
                 ant.leave_pheromone(1)
                 self.leave_pheromone(ant.position, 1, ant.carrying)
 
