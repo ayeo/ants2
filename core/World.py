@@ -27,20 +27,17 @@ class World():
                 self.breed_ant()
 
         for ant in self.ants:
-            if ant.carrying:
+            ant.step = ant.step + 1
+
+            if ant.carrying: #fixme: move this logic to ant
                 ant.update(ant.memory)
             else:
                 ant.update(self.pheromones_food)
 
-
-            ant.step = ant.step + 1
             if (ant.step > 300):
+                ant.reset()
                 ant.position = (self.nest[0], self.nest[1])
-                ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
-                ant.breadcrumb = []
-                ant.step = 0
                 return
-
 
             ant.leave_pheromone(1)
             self.leave_pheromone(ant.position, 1, ant.carrying)
