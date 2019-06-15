@@ -5,7 +5,7 @@ from core.Ant import Ant
 class World():
     ants = []
     nest = (0, 0)
-    food = (0, 0, 0, 0)
+    food = (0, 0, 0)
     counter = 0
     number = 1
     frequency = 1000
@@ -28,7 +28,7 @@ class World():
 
         for ant in self.ants:
             if ant.carrying:
-                ant.update(ant.cache)
+                ant.update(ant.memory)
             else:
                 ant.update(self.pheromones_food)
 
@@ -45,32 +45,30 @@ class World():
             ant.leave_pheromone(1)
             self.leave_pheromone(ant.position, 1, ant.carrying)
 
-            if ant.position[0] > self.food[0] - self.food[2] and ant.position[0] < self.food[0] + self.food[2] and \
-            ant.position[1] > self.food[1] - self.food[2] and ant.position[1] < self.food[1] + self.food[2]:
-
-                ant.cache = ant.pheromones[:]
-                ant.breadcrumb = []
-                ant.breadcrumb.append(ant.position)
-                ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
+            if self.is_on_food(ant):
+                ant.reset()
                 ant.carrying = True
-                ant.step = 0
                 ant.leave_pheromone(1)
                 self.leave_pheromone(ant.position, 1, ant.carrying)
-
-            if ant.position[0] > self.nest[0] - self.nest[2] and ant.position[0] < self.nest[0] + self.nest[2] and \
-            ant.position[1] > self.nest[1] - self.nest[2] and ant.position[1] < self.nest[1] + self.nest[2]:
-
-                ant.cache = ant.pheromones[:]
-                ant.breadcrumb = []
-                ant.breadcrumb.append(ant.position)
-                ant.pheromones = np.full((self.size, self.size), 0.0, dtype=float)
+            elif self.is_on_nest(ant):
+                ant.reset()
                 ant.carrying = False
-                ant.step = 0
                 ant.leave_pheromone(1)
                 self.leave_pheromone(ant.position, 1, ant.carrying)
 
         self.counter = self.counter + 1
 
+
+    def is_on_food(self, ant: Ant):
+        return \
+            ant.position[0] > self.food[0] - self.food[2] and ant.position[0] < self.food[0] + self.food[2] and \
+            ant.position[1] > self.food[1] - self.food[2] and ant.position[1] < self.food[1] + self.food[2]
+
+
+    def is_on_nest(self, ant: Ant):
+        return \
+            ant.position[0] > self.nest[0] - self.nest[2] and ant.position[0] < self.nest[0] + self.nest[2] and \
+            ant.position[1] > self.nest[1] - self.nest[2] and ant.position[1] < self.nest[1] + self.nest[2]
 
     def evaporate(self, quantity):
         self.pheromones_nest = self.pheromones_nest - quantity

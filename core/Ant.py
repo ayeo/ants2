@@ -45,6 +45,13 @@ class Ant():
             t = tuple(np.array(cell) - [center, center])
             return t
 
+    def reset(self):
+        self.memory = self.pheromones[:]
+        self.breadcrumb = []
+        self.breadcrumb.append(self.position)
+        self.pheromones = np.full((self.board_size, self.board_size), 0.0, dtype=float)
+        self.step = 0
+
     def update(self, pheromones):
         distance = (self.sense - 1) / 2
         position = self.position
