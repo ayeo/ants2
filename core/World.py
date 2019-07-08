@@ -38,7 +38,7 @@ class World():
 
 
             ant.step = ant.step + 1
-            if (ant.step > 300):
+            if (ant.step > 100):
                 ant.position = (self.nest[0], self.nest[1])
                 ant.reset()
                 return

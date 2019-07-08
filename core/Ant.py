@@ -3,16 +3,16 @@ import random
 import numpy as np
 
 class Ant():
+    step = 0
+    speed = 5
     carrying = False
 
     def __init__(self, id, position, board_size):
         self.id = id
-        self.step = 0
         self.position = position
         self.angle = random.randint(0, 360)
         self.new_angle = self.angle
-        self.speed = 5
-        self.sense = 11 #todo speed * 2 + 1
+        self.sense = self.speed * 2 + 1
         self.board_size = board_size
         self.pheromones = np.full((board_size, board_size), 0.0, dtype=float)
 
